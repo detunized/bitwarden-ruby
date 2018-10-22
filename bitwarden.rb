@@ -3,6 +3,7 @@
 # Copyright (C) 2018 Dmitry Yakimenko (detunized@gmail.com).
 # Licensed under the terms of the MIT license. See LICENCE for details.
 
+require "yaml"
 require "httparty"
 
 #
@@ -26,5 +27,8 @@ end
 # main
 #
 
+# Set up and prepare the credentials
 http = Http.new
-ap http.get "https://google.com"
+config = YAML::load_file "config.yaml"
+
+ap config

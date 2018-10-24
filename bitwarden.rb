@@ -42,10 +42,6 @@ class Http
                         body: args,
                         headers: @post_form_headers.merge(headers)
     end
-
-    def put url, headers = {}
-        self.class.put url, headers: headers
-    end
 end
 
 def request_kdf_iteration_count username, http

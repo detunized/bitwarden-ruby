@@ -44,11 +44,15 @@ end
 
 module Crypto
     def self.derive_key username, password, iterations
-        pbkdf2 password: password, salt: username.strip.downcase, iterations: iterations
+        pbkdf2 password: password,
+               salt: username.strip.downcase,
+               iterations: iterations
     end
 
     def self.hash_key key, password
-        pbkdf2 password: key, salt: password, iterations: 1
+        pbkdf2 password: key,
+               salt: password,
+               iterations: 1
     end
 
     def self.hash_key_base64 key, password
@@ -56,7 +60,11 @@ module Crypto
     end
 
     def self.pbkdf2 password:, salt:, iterations:
-        OpenSSL::KDF.pbkdf2_hmac password, salt: salt, iterations: iterations, length: 32, hash: "sha256"
+        OpenSSL::KDF.pbkdf2_hmac password,
+                                 salt: salt,
+                                 iterations: iterations,
+                                 length: 32,
+                                 hash: "sha256"
     end
 end
 

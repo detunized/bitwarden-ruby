@@ -73,6 +73,14 @@ def logout http
     #       See if this ever changes.
 end
 
+def download_vault auth_token, http
+    response = http.get "https://vault.bitwarden.com/api/sync?excludeDomains=true",
+                        {"Authorization" => auth_token}
+    raise "Failed to download the vault" if !response.ok?
+
+    response.parsed_response
+end
+
 #
 # crypto
 #
@@ -118,10 +126,10 @@ kdf_iterations = request_kdf_iteration_count username, http
 key = Crypto.derive_key username, password, kdf_iterations
 hash = Crypto.hash_password_base64 password, key
 auth_token = request_auth_token username, hash, http
-ap auth_token
 
 begin
-    # TODO: Download and parse the vault
+    encrypted_vault = download_vault auth_token, http
+    ap encrypted_vault
 ensure
     logout http
 end

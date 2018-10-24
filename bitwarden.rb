@@ -22,8 +22,8 @@ class Http
         }
     end
 
-    def get url
-        self.class.get url
+    def get url, headers = {}
+        self.class.get url, headers: headers
     end
 
     def post url, args, headers = {}

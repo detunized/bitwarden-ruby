@@ -42,6 +42,10 @@ class Http
                         body: args,
                         headers: @post_form_headers.merge(headers)
     end
+
+    def put url, headers = {}
+        self.class.put url, headers: headers
+    end
 end
 
 def request_kdf_iteration_count username, http
@@ -57,6 +61,11 @@ def request_auth_token username, password_hash, http
         scope: "api offline_access",
         client_id: "web",
     }
+    response.ok? && response.parsed_response
+end
+
+def logout device_id, http
+    response = http.put "https://vault.bitwarden.com/api/devices/identifier/#{device_id}/clear-token",
     response.ok? && response.parsed_response
 end
 
@@ -107,3 +116,5 @@ hash = Crypto.hash_password_base64 password, key
 auth_token = request_auth_token username, hash, http
 
 ap auth_token
+
+logout "TODO", http

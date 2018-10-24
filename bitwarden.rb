@@ -64,9 +64,10 @@ def request_auth_token username, password_hash, http
     response.ok? && response.parsed_response
 end
 
-def logout device_id, http
-    response = http.put "https://vault.bitwarden.com/api/devices/identifier/#{device_id}/clear-token",
-    response.ok? && response.parsed_response
+def logout http
+    # TODO: Looks like there's nothing to do here.
+    #       The logout doesn't do anything server-side.
+    #       See if this ever changes.
 end
 
 #
@@ -115,6 +116,8 @@ key = Crypto.derive_key username, password, kdf_iterations
 hash = Crypto.hash_password_base64 password, key
 auth_token = request_auth_token username, hash, http
 
-ap auth_token
-
-logout "TODO", http
+begin
+    # TODO: Download and parse the vault
+ensure
+    logout http
+end

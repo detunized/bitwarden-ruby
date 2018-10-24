@@ -49,14 +49,14 @@ module Crypto
                iterations: iterations
     end
 
-    def self.hash_key key, password
+    def self.hash_password password, key
         pbkdf2 password: key,
                salt: password,
                iterations: 1
     end
 
-    def self.hash_key_base64 key, password
-        Base64.strict_encode64 hash_key key, password
+    def self.hash_password_base64 password, key
+        Base64.strict_encode64 hash_password password, key
     end
 
     def self.pbkdf2 password:, salt:, iterations:
@@ -81,7 +81,7 @@ password = config["password"] or fail "Password is missing"
 
 kdf_iterations = request_kdf_iteration_count username, http
 key = Crypto.derive_key username, password, kdf_iterations
-hash = Crypto.hash_key_base64 key, password
+hash = Crypto.hash_password_base64 password, key
 
 ap key
 ap hash

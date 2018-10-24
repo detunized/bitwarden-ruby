@@ -49,6 +49,17 @@ def request_kdf_iteration_count username, http
     response.ok? && response.parsed_response["KdfIterations"] || 5000
 end
 
+def request_auth_token username, password_hash, http
+    response = http.post_form "https://vault.bitwarden.com/identity/connect/token", {
+        username: username,
+        password: password_hash,
+        grant_type: "password",
+        scope: "api offline_access",
+        client_id: "web",
+    }
+    response.ok? && response.parsed_response
+end
+
 #
 # crypto
 #
@@ -93,6 +104,6 @@ password = config["password"] or fail "Password is missing"
 kdf_iterations = request_kdf_iteration_count username, http
 key = Crypto.derive_key username, password, kdf_iterations
 hash = Crypto.hash_password_base64 password, key
+auth_token = request_auth_token username, hash, http
 
-ap key
-ap hash
+ap auth_token

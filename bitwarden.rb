@@ -46,7 +46,9 @@ end
 
 def request_kdf_iteration_count username, http
     response = http.post_json "https://vault.bitwarden.com/api/accounts/prelogin", email: username
-    response.ok? && response.parsed_response["KdfIterations"] || 5000
+    raise "Failed to request KDF iteration count" if !response.ok?
+
+    response.parsed_response["KdfIterations"]
 end
 
 def request_auth_token username, password_hash, http
@@ -57,7 +59,12 @@ def request_auth_token username, password_hash, http
         scope: "api offline_access",
         client_id: "web",
     }
-    response.ok? && response.parsed_response
+    raise "Failed to request auth token" if !response.ok?
+
+    token_type = response.parsed_response["token_type"]
+    access_token = response.parsed_response["access_token"]
+
+    "#{token_type} #{access_token}"
 end
 
 def logout http
@@ -111,6 +118,7 @@ kdf_iterations = request_kdf_iteration_count username, http
 key = Crypto.derive_key username, password, kdf_iterations
 hash = Crypto.hash_password_base64 password, key
 auth_token = request_auth_token username, hash, http
+ap auth_token
 
 begin
     # TODO: Download and parse the vault

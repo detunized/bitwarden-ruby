@@ -17,8 +17,13 @@ class Http
     include HTTParty
 
     def initialize
-        @json_headers = {
+        @post_json_headers = {
+            "Accept" => "application/json",
             "Content-Type" => "application/json; charset=UTF-8"
+        }
+        @post_form_headers = {
+            "Accept" => "application/json",
+            "Content-Type" => "application/x-www-form-urlencoded; charset=UTF-8"
         }
     end
 
@@ -26,15 +31,21 @@ class Http
         self.class.get url, headers: headers
     end
 
-    def post url, args, headers = {}
+    def post_json url, args, headers = {}
         self.class.post url,
                         body: args.to_json,
-                        headers: @json_headers.merge(headers)
+                        headers: @post_json_headers.merge(headers)
+    end
+
+    def post_form url, args, headers = {}
+        self.class.post url,
+                        body: args,
+                        headers: @post_form_headers.merge(headers)
     end
 end
 
 def request_kdf_iteration_count username, http
-    response = http.post "https://vault.bitwarden.com/api/accounts/prelogin", email: username
+    response = http.post_json "https://vault.bitwarden.com/api/accounts/prelogin", email: username
     response.ok? && response.parsed_response["KdfIterations"] || 5000
 end
 

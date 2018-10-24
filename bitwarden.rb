@@ -29,7 +29,7 @@ class Http
     def post url, args, headers = {}
         self.class.post url,
                         body: args.to_json,
-                        headers: headers.merge(@json_headers)
+                        headers: @json_headers.merge(headers)
     end
 end
 

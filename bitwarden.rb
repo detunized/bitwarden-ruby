@@ -109,6 +109,28 @@ module Crypto
                                  length: 32,
                                  hash: "sha256"
     end
+
+    # This is the "expand" half of the "extract-expand" HKDF algorithm.
+    # The length is fixed to 32 not to complicate things.
+    def self.hkdf_expand prk:, info:
+        OpenSSL::HMAC.digest "sha256", prk, info + "\x01"
+    end
+
+    def self.expand_key key
+        fail "Key must be 32 bytes long" if key.size != 32
+        enc = hkdf_expand prk: key, info: "enc"
+        mac = hkdf_expand prk: key, info: "mac"
+
+        enc + mac
+    end
+
+    def self.decrypt_aes256cbc ciphertext, iv, key
+        c = OpenSSL::Cipher.new("aes-256-cbc")
+        c.decrypt
+        c.key = key
+        c.iv = iv
+        c.update(ciphertext) + c.final
+    end
 end
 
 #
@@ -143,7 +165,6 @@ auth_token = request_auth_token username, hash, http
 
 begin
     encrypted_vault = download_vault auth_token, http
-    ap encrypted_vault
 ensure
     logout http
 end

@@ -136,6 +136,7 @@ module Crypto
 
     # This is the "expand" half of the "extract-expand" HKDF algorithm.
     # The length is fixed to 32 not to complicate things.
+    # See https://tools.ietf.org/html/rfc5869
     def self.hkdf_expand prk:, info:
         OpenSSL::HMAC.digest "sha256", prk, info + "\x01"
     end

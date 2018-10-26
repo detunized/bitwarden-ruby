@@ -99,7 +99,7 @@ module Crypto
     end
 
     def self.hash_password_base64 password, key
-        Base64.strict_encode64 hash_password password, key
+        hash_password(password, key).e64
     end
 
     def self.pbkdf2 password:, salt:, iterations:
@@ -108,6 +108,20 @@ module Crypto
                                  iterations: iterations,
                                  length: 32,
                                  hash: "sha256"
+    end
+end
+
+#
+# Utils
+#
+
+class String
+    def e64
+        Base64.strict_encode64 self
+    end
+
+    def d64
+        Base64.strict_decode64 self
     end
 end
 

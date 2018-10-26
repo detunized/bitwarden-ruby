@@ -10,7 +10,7 @@ require "openssl"
 require "httparty"
 
 #
-# network
+# Network
 #
 
 class Http
@@ -82,7 +82,7 @@ def download_vault auth_token, http
 end
 
 #
-# crypto
+# Crypto
 #
 
 module Crypto

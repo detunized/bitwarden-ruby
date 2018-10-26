@@ -81,6 +81,30 @@ def download_vault auth_token, http
     response.parsed_response
 end
 
+def decrypt_vault encrypted_vault, key
+    expanded_key = Crypto.expand_key key
+    decrypt_cipher_string encrypted_vault["Profile"]["Key"], expanded_key
+end
+
+def decrypt_cipher_string cipher_string, key
+    encryption_type, iv_mac_cipthertext = cipher_string.split "."
+    iv, ciphertext, mac = iv_mac_cipthertext.split("|").map { |i| i.d64 }
+
+    # Supported encryption types:
+    # 0: AES-256-CBC
+    # 1: AES-128-CBC with HMAC-SHA-256 MAC then encrypt authentication
+    # 2: AES-256-CBC with HMAC-SHA-256 MAC then encrypt authentication
+
+    case encryption_type.to_i
+    when 0
+        fail "Not supported yet"
+    when 1
+        fail "Not supported yet"
+    when 2
+        Crypto.decrypt_aes256cbc ciphertext, iv, key[0, 32]
+    end
+end
+
 #
 # Crypto
 #

@@ -134,11 +134,15 @@ module Crypto
                                  hash: "sha256"
     end
 
+    def self.hmac key, message
+        OpenSSL::HMAC.digest "sha256", key, message
+    end
+
     # This is the "expand" half of the "extract-expand" HKDF algorithm.
     # The length is fixed to 32 not to complicate things.
     # See https://tools.ietf.org/html/rfc5869
     def self.hkdf_expand prk:, info:
-        OpenSSL::HMAC.digest "sha256", prk, info + "\x01"
+        hmac prk, info + "\x01"
     end
 
     def self.expand_key key

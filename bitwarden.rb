@@ -83,7 +83,21 @@ end
 
 def decrypt_vault encrypted_vault, key
     expanded_key = Crypto.expand_key key
-    decrypt_cipher_string encrypted_vault["Profile"]["Key"], expanded_key
+    vault_key = decrypt_cipher_string encrypted_vault["Profile"]["Key"], expanded_key
+    accounts = encrypted_vault["Ciphers"]
+        .select { |item| item["Type"] == 1 }
+        .map { |item|
+            {
+                id: item["Id"],
+                name: decrypt_cipher_string(item["Name"], vault_key),
+                username: decrypt_cipher_string(item["Login"]["Username"], vault_key),
+                password: decrypt_cipher_string(item["Login"]["Password"], vault_key),
+                urls: item["Login"]["Uris"].map { |uri| decrypt_cipher_string(uri["Uri"], vault_key) },
+                notes: decrypt_cipher_string(item["Notes"], vault_key),
+            }
+        }
+
+    accounts
 end
 
 def decrypt_cipher_string cipher_string, key
@@ -97,8 +111,10 @@ def decrypt_cipher_string cipher_string, key
 
     case encryption_type.to_i
     when 0
+        # TODO: Handle this case
         fail "Not supported yet"
     when 1
+        # TODO: Handle this case
         fail "Not supported yet"
     when 2
         computed_mac = Crypto.hmac key[32, 32], iv + ciphertext
@@ -197,6 +213,8 @@ auth_token = request_auth_token username, hash, http
 
 begin
     encrypted_vault = download_vault auth_token, http
+    accounts = decrypt_vault encrypted_vault, key
+    ap accounts
 ensure
     logout http
 end

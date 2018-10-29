@@ -101,6 +101,9 @@ def decrypt_cipher_string cipher_string, key
     when 1
         fail "Not supported yet"
     when 2
+        computed_mac = Crypto.hmac key[32, 32], iv + ciphertext
+        fail "MAC doesn't match" if computed_mac != mac
+
         Crypto.decrypt_aes256cbc ciphertext, iv, key[0, 32]
     end
 end

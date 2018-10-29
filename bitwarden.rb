@@ -82,8 +82,15 @@ def download_vault auth_token, http
 end
 
 def decrypt_vault encrypted_vault, key
-    expanded_key = Crypto.expand_key key
-    vault_key = decrypt_cipher_string encrypted_vault["Profile"]["Key"], expanded_key
+    encrypted_vault_key = encrypted_vault["Profile"]["Key"]
+    vault_key = if encrypted_vault_key.nil?
+        key
+    else
+        # TODO: It's possible the key stretching is only needed in some cases. Look into that.
+        expanded_key = Crypto.expand_key key
+        decrypt_cipher_string encrypted_vault_key, expanded_key
+    end
+
     accounts = encrypted_vault["Ciphers"]
         .select { |item| item["Type"] == 1 }
         .map { |item|
@@ -111,12 +118,15 @@ def decrypt_cipher_string cipher_string, key
 
     case encryption_type.to_i
     when 0
-        # TODO: Handle this case
-        fail "Not supported yet"
+        fail "Key must be 32 bytes long" if key.size != 32
+
+        Crypto.decrypt_aes256cbc ciphertext, iv, key
     when 1
         # TODO: Handle this case
         fail "Not supported yet"
     when 2
+        fail "Key must be 64 bytes long" if key.size != 64
+
         computed_mac = Crypto.hmac key[32, 32], iv + ciphertext
         fail "MAC doesn't match" if computed_mac != mac
 

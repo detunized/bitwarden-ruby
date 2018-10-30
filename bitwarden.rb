@@ -191,6 +191,41 @@ module Crypto
     end
 end
 
+class CipherString < Struct.new :kind, :iv, :ciphertext, :mac
+    def self.parse s
+        kind, encrypted = kind_encrypted s
+        iv, ciphertext, mac = iv_cipthertext_mac encrypted
+
+        new kind, iv, ciphertext, mac
+    end
+
+    def self.kind_encrypted s
+        parts = s.split "."
+        case parts.size
+        when 1
+            0, parts[0]
+        when 2
+            parts[0].to_i, parts[1]
+        else
+            fail "Invalid cipher string"
+        end
+    end
+
+    def self.iv_cipthertext_mac s
+        parts = s.split "|"
+        case parts.size
+        when 1
+            fail "Invalid cipher string"
+        when 2
+            parts[0].d64, parts[1].d64, nil
+        when 3
+            parts[0].d64, parts[1].d64, parts[2].d64
+        else
+            fail "Invalid cipher string"
+        end
+    end
+end
+
 #
 # Utils
 #

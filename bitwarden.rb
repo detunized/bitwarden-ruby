@@ -86,9 +86,7 @@ def decrypt_vault encrypted_vault, key
     vault_key = if encrypted_vault_key.nil?
         key
     else
-        # TODO: It's possible the key stretching is only needed in some cases. Look into that.
-        expanded_key = Crypto.expand_key key
-        decrypt_cipher_string encrypted_vault_key, expanded_key
+        decrypt_string encrypted_vault_key, key
     end
 
     accounts = encrypted_vault["Ciphers"]
@@ -96,42 +94,23 @@ def decrypt_vault encrypted_vault, key
         .map { |item|
             {
                 id: item["Id"],
-                name: decrypt_cipher_string(item["Name"], vault_key),
-                username: decrypt_cipher_string(item["Login"]["Username"], vault_key),
-                password: decrypt_cipher_string(item["Login"]["Password"], vault_key),
-                urls: item["Login"]["Uris"].map { |uri| decrypt_cipher_string(uri["Uri"], vault_key) },
-                notes: decrypt_cipher_string(item["Notes"], vault_key),
+                name: decrypt_string(item["Name"], vault_key),
+                username: decrypt_string(item["Login"]["Username"], vault_key),
+                password: decrypt_string(item["Login"]["Password"], vault_key),
+                urls: item["Login"]["Uris"].map { |uri| decrypt_string(uri["Uri"], vault_key) },
+                notes: decrypt_string(item["Notes"], vault_key),
             }
         }
 
     accounts
 end
 
-def decrypt_cipher_string cipher_string, key
-    encryption_type, iv_mac_cipthertext = cipher_string.split "."
-    iv, ciphertext, mac = iv_mac_cipthertext.split("|").map { |i| i.d64 }
+def decrypt_string s, key
+    decrypt_cipher_string CipherString.parse(s), key
+end
 
-    # Supported encryption types:
-    # 0: AES-256-CBC
-    # 1: AES-128-CBC with HMAC-SHA-256 MAC then encrypt authentication
-    # 2: AES-256-CBC with HMAC-SHA-256 MAC then encrypt authentication
-
-    case encryption_type.to_i
-    when 0
-        fail "Key must be 32 bytes long" if key.size != 32
-
-        Crypto.decrypt_aes256cbc ciphertext, iv, key
-    when 1
-        # TODO: Handle this case
-        fail "Not supported yet"
-    when 2
-        fail "Key must be 64 bytes long" if key.size != 64
-
-        computed_mac = Crypto.hmac key[32, 32], iv + ciphertext
-        fail "MAC doesn't match" if computed_mac != mac
-
-        Crypto.decrypt_aes256cbc ciphertext, iv, key[0, 32]
-    end
+def decrypt_cipher_string cs, key
+    cs.decrypt key
 end
 
 #
@@ -191,21 +170,26 @@ module Crypto
     end
 end
 
-class CipherString < Struct.new :kind, :iv, :ciphertext, :mac
-    def self.parse s
-        kind, encrypted = kind_encrypted s
-        iv, ciphertext, mac = iv_cipthertext_mac encrypted
+class CipherString < Struct.new :mode, :iv, :ciphertext, :mac
+    AES_256_CBC = 0
+    AES_128_CBC_HMAC_SHA_256 = 1
+    AES_256_CBC_HMAC_SHA_256 = 2
 
-        new kind, iv, ciphertext, mac
+    def self.parse s
+        mode, encrypted = mode_encrypted s
+        iv, ciphertext, mac = iv_cipthertext_mac encrypted
+        validate mode, iv, ciphertext, mac
+
+        new mode, iv, ciphertext, mac
     end
 
-    def self.kind_encrypted s
+    def self.mode_encrypted s
         parts = s.split "."
         case parts.size
         when 1
-            0, parts[0]
+            [AES_256_CBC, parts[0]]
         when 2
-            parts[0].to_i, parts[1]
+            [parts[0].to_i, parts[1]]
         else
             fail "Invalid cipher string"
         end
@@ -217,11 +201,45 @@ class CipherString < Struct.new :kind, :iv, :ciphertext, :mac
         when 1
             fail "Invalid cipher string"
         when 2
-            parts[0].d64, parts[1].d64, nil
+            [parts[0].d64, parts[1].d64, nil]
         when 3
-            parts[0].d64, parts[1].d64, parts[2].d64
+            [parts[0].d64, parts[1].d64, parts[2].d64]
         else
             fail "Invalid cipher string"
+        end
+    end
+
+    def self.validate mode, iv, ciphertext, mac
+        fail "IV must be 16 bytes long" if iv.nil? || iv.size != 16
+        fail "Ciphertext must be present" if ciphertext.nil?
+
+        case mode
+        when AES_256_CBC
+            fail "MAC is not supported in AES-256-CBC mode" if mac
+        when AES_128_CBC_HMAC_SHA_256, AES_256_CBC_HMAC_SHA_256
+            fail "MAC must be 32 bytes long" if mac.nil? || mac.size != 32
+        else
+            fail "Invalid encryption mode"
+        end
+    end
+
+    def decrypt key
+        case mode
+        when 0
+            fail "Key must be 32 bytes long" if key.size != 32
+
+            Crypto.decrypt_aes256cbc ciphertext, iv, key
+        when 1
+            # TODO: Handle this case
+            fail "Not supported yet"
+        when 2
+            key = Crypto.expand_key key if key.size == 32
+            fail "Key must be 64 bytes long" if key.size != 64
+
+            computed_mac = Crypto.hmac key[32, 32], iv + ciphertext
+            fail "MAC doesn't match" if computed_mac != mac
+
+            Crypto.decrypt_aes256cbc ciphertext, iv, key[0, 32]
         end
     end
 end

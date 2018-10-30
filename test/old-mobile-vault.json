@@ -1,0 +1,73 @@
+{
+    "Profile":
+    {
+        "Id": "327c6e6c-5412-42b5-88ef-a73f00742da2",
+        "Name": null,
+        "Email": "detunized@gmail.com",
+        "EmailVerified": false,
+        "Premium": false,
+        "MasterPasswordHint": "372at",
+        "Culture": "en-US",
+        "TwoFactorEnabled": false,
+        "Key": null,
+        "PrivateKey": "0./hLcaZL/dJ8hEhrkTTf1YQ==|5DeYonWFfCGpnmimpNZOuKzrSZTApdyt+rYchuo9fz1fuUhv+eXWa9/OboAjqBW/Hls8nOs/+FQvk4L42t59uBT2hrFKQ5CnpkMUgm94R26MF/56s4zfELmRqh9XhBvU079lKjAxOTtKxdV5B6n5StSRblpoHK8bnchFO0YB+PHgZCkX7XtiC2msEsAKKqpLNLgVpsNEfOObXKn3+OJu9QO0d2uyjNPOqVEOkhtDv0pWEZDV4Tjs0aUgUkHBn6MaWI7m8PFIVIFTSKvT/Ioq/4hzQeCCirUEW7/6avnru5xdDHXx0NbTCxIVJJb6zgBa10yHSyDcOXocGNVqDX8nw2GEFpYAYeBCXw1vNha0SIPPU54ZnI5ZCUAgbekQv166KnS3BDjfyYg8mJbc2UtnKP0tuBaFgDMIf4aRfzQcjoDXd3x4lNKwC+vZ5QVGwYp9ZmcfVPZkAHT/1evtwCQ3GM7HhHq5djJrq8k8sMqreFAqvtc5VZvZzyNHPyZ8Mj1TFBtjWUg+hvMPSxsZuYVi/IWwc+zsFFzsMzNEp6m+6JCbTU14M6x+c8CKmPZ2uKedUTh+uJcDa626iPBzCWwu56K+ezw16sBm6u9gEyUBAOrV6en/kM3cw5GjRid1BUEDzIgWeW93IKCpk/N0CjISbjL+P/jRI2AsZB3jhfb00wZ7BYXesUKNy/RvUJAut8pieOZynn1ONerXfvZpOE8yrUQOxZV5QtWTWz6fX+vADoPzuAuHPW0vi3kAabhhsT90guUUXNgvEPo4h8VVq1vxuyFiAh/TzvXXie0Z1iO9Gbv49IOTYp773UMGQUc4gyMOpbnwnjoik7rVMNsBIo+mapKKonCoqloEwquNznr0NLSWBZUYm/IxusfWZsNhyariw9QXFZLrIhGP1JQY/HDxa5WCMWC2F2zGwt324am3hp5T0fKvhErSL/WWj1AxIHcDdRu8bYZvR6k3FJS0J7KeQOX6Veeg5z+q4yJr4z0vUVIgmhsXhvd2WXopbsjnvvxayJzkVB5wMCHkh99mK7E2BYC1Ie6je79ScWONpRWO4Om+nMznFg317fFx4bXrIY0ZY8RhDIFnV6Vwp894k+n8OYPeDSoa2QWHSzHAEu7c/8C18rVztmOpuFbUojQVRYy0ooshnwrI3b1FpGlaiMkG7np9/SbNeWWyZpzOJbj9DvOp3DHUuiU7XZk0y/pfKPaUslfjIUGBZvejp2G5q1vpJWcJ1uXi9nqerXYnVRUTXWDWD+NCOxvmGbJMClKlrtucv1W9wcGB21RfMFangnCtBlMbaZuoJ+PCuvwbRtkkEu05CzUF4Orcp/EXAL6X63Twcfvrd8bRCUlD3jBqTXXXtwuSqmzF8adkiGnFw0mdpbEzteShCaWpJhHVFkF/DVOf9fiODqGYbs/tWNlHELmLw7bvUyB8QWrX2M3hq84nmpOs+cWIqdD79RK5QOU/kjGF8ETyNFsQRkNr0hQ8+5HT8PBOuFSyz4DWRXE4Lg4rtVABrsiHetSOyGf3PJrx96kAJ4Ba3TKAMIcj8bZg/PwGMZlz9BePU0XBXpA0Qmj+0cIOkLGsGP17e+EPolCtXxqGQkSi+nzTzhuGA72yblJTUApQvZ8IL0aXQL3mpdPp2gI=",
+        "SecurityStamp": "fb8a6f2c-de08-4fd2-b635-410ca128dbb4",
+        "Organizations": [],
+        "Object": "profile"
+    },
+    "Folders": [],
+    "Collections": [],
+    "Ciphers": [
+    {
+        "CollectionIds": [],
+        "FolderId": null,
+        "Favorite": false,
+        "Edit": true,
+        "Id": "1c14ed22-4c87-482d-a3f3-a98800cebf44",
+        "OrganizationId": null,
+        "Type": 1,
+        "Data":
+        {
+            "Uri": "0.m1WWE1kvyB1BMpFX1XQs8g==|HyaoZbH9bbsGLdZbsf4qHw==",
+            "Uris": [
+            {
+                "Uri": "0.m1WWE1kvyB1BMpFX1XQs8g==|HyaoZbH9bbsGLdZbsf4qHw==",
+                "Match": null
+            }],
+            "Username": "0.YDyK3LRvn2rNBQKmpCPO4Q==|FkzBp0mkNymQi8WOGNOwGw==",
+            "Password": "0.BbWDipoejHzkfUerUBvwFg==|/69lve/gyQHZ5cGGPlqf0Q==",
+            "PasswordRevisionDate": null,
+            "Totp": null,
+            "Name": "0.ORt3FYWideny8ySqV6QavA==|ZB3L5YSjcW2vk7uX4COEDg==",
+            "Notes": "0.ZM0x+KyogCFooO/E1kPwQQ==|ToJQHoVdhKpHb4QXansnXQ==",
+            "Fields": null,
+            "PasswordHistory": null
+        },
+        "Name": "0.ORt3FYWideny8ySqV6QavA==|ZB3L5YSjcW2vk7uX4COEDg==",
+        "Notes": "0.ZM0x+KyogCFooO/E1kPwQQ==|ToJQHoVdhKpHb4QXansnXQ==",
+        "Login":
+        {
+            "Uri": "0.m1WWE1kvyB1BMpFX1XQs8g==|HyaoZbH9bbsGLdZbsf4qHw==",
+            "Uris": [
+            {
+                "Uri": "0.m1WWE1kvyB1BMpFX1XQs8g==|HyaoZbH9bbsGLdZbsf4qHw==",
+                "Match": null
+            }],
+            "Username": "0.YDyK3LRvn2rNBQKmpCPO4Q==|FkzBp0mkNymQi8WOGNOwGw==",
+            "Password": "0.BbWDipoejHzkfUerUBvwFg==|/69lve/gyQHZ5cGGPlqf0Q==",
+            "PasswordRevisionDate": null,
+            "Totp": null
+        },
+        "Card": null,
+        "Identity": null,
+        "SecureNote": null,
+        "Fields": null,
+        "PasswordHistory": null,
+        "Attachments": null,
+        "OrganizationUseTotp": false,
+        "RevisionDate": "2018-10-29T12:32:44.5966667Z",
+        "Object": "cipherDetails"
+    }],
+    "Domains": null,
+    "Object": "sync"
+}

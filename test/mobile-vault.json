@@ -1,0 +1,73 @@
+{
+    "Profile":
+    {
+        "Id": "ca7ff624-8dc6-42f4-9c0e-a98900acb39a",
+        "Name": null,
+        "Email": "lastpass.ruby+mobile@gmail.com",
+        "EmailVerified": false,
+        "Premium": false,
+        "MasterPasswordHint": "372at",
+        "Culture": "en-US",
+        "TwoFactorEnabled": false,
+        "Key": "0.zvzOJSV35bCe1+KXvuk44A==|JlJEuSGLyq1mTnzi/LetVTh/i6PFm7e7Ms2g7URbtVl7weh/bf/R3B/4oAVJxI5Ld07nvY8EmZ39umH7BJKqaQH3FocLknY4FptYJ/yLzWQ=",
+        "PrivateKey": null,
+        "SecurityStamp": "L5AQLZ2TKTAFVMCJSSOS4PL5NYAMQ4EB",
+        "Organizations": [],
+        "Object": "profile"
+    },
+    "Folders": [],
+    "Collections": [],
+    "Ciphers": [
+    {
+        "CollectionIds": [],
+        "FolderId": null,
+        "Favorite": false,
+        "Edit": true,
+        "Id": "bc6a3bb0-2a13-4b53-95c2-a98900ad0787",
+        "OrganizationId": null,
+        "Type": 1,
+        "Data":
+        {
+            "Uri": "2.TE6L09j0A3bSZQU0VY+jgA==|UvzJb39LIXRX2G6b6LBeug==|9z2Enuur3FkMMhn/oxaydF2vbfY3UvTvHc7fzuVI7vw=",
+            "Uris": [
+            {
+                "Uri": "2.TE6L09j0A3bSZQU0VY+jgA==|UvzJb39LIXRX2G6b6LBeug==|9z2Enuur3FkMMhn/oxaydF2vbfY3UvTvHc7fzuVI7vw=",
+                "Match": null
+            }],
+            "Username": "2.VBX5QA2Y+I4xAag4Y1418A==|fJX2QHDU7coiINPxoj6aiQ==|Ne2F6p9cuodDkWhDYYmOiJlwJXO6xHHxSIn9K395kAg=",
+            "Password": "2.ZT2Af5hlI68CpxaRkuTvTg==|FcUVlJ4F/cIbW2gxLWikAQ==|GhzKGdMzokm1gGGy/xeeMO01JXHYmDiouc9/3kiAZF0=",
+            "PasswordRevisionDate": null,
+            "Totp": null,
+            "Name": "2.J2zGP1yPwZYOESyjqZntuA==|aWD5AIRVeIJtC3kVYLBHdQ==|qV4F9SEHh5mpwpTVhnxq8Fx+MgmVQ6DvY7jKptDkUqI=",
+            "Notes": "2.U5s5MH0enySK2DbBSS3Mew==|fwB1ZkkQwQMmGNNS+nivAg==|Nc41YAr8bM2vW5qEggj/ofeKLwJIVo4w2eklbeUME80=",
+            "Fields": null,
+            "PasswordHistory": null
+        },
+        "Name": "2.J2zGP1yPwZYOESyjqZntuA==|aWD5AIRVeIJtC3kVYLBHdQ==|qV4F9SEHh5mpwpTVhnxq8Fx+MgmVQ6DvY7jKptDkUqI=",
+        "Notes": "2.U5s5MH0enySK2DbBSS3Mew==|fwB1ZkkQwQMmGNNS+nivAg==|Nc41YAr8bM2vW5qEggj/ofeKLwJIVo4w2eklbeUME80=",
+        "Login":
+        {
+            "Uri": "2.TE6L09j0A3bSZQU0VY+jgA==|UvzJb39LIXRX2G6b6LBeug==|9z2Enuur3FkMMhn/oxaydF2vbfY3UvTvHc7fzuVI7vw=",
+            "Uris": [
+            {
+                "Uri": "2.TE6L09j0A3bSZQU0VY+jgA==|UvzJb39LIXRX2G6b6LBeug==|9z2Enuur3FkMMhn/oxaydF2vbfY3UvTvHc7fzuVI7vw=",
+                "Match": null
+            }],
+            "Username": "2.VBX5QA2Y+I4xAag4Y1418A==|fJX2QHDU7coiINPxoj6aiQ==|Ne2F6p9cuodDkWhDYYmOiJlwJXO6xHHxSIn9K395kAg=",
+            "Password": "2.ZT2Af5hlI68CpxaRkuTvTg==|FcUVlJ4F/cIbW2gxLWikAQ==|GhzKGdMzokm1gGGy/xeeMO01JXHYmDiouc9/3kiAZF0=",
+            "PasswordRevisionDate": null,
+            "Totp": null
+        },
+        "Card": null,
+        "Identity": null,
+        "SecureNote": null,
+        "Fields": null,
+        "PasswordHistory": null,
+        "Attachments": null,
+        "OrganizationUseTotp": false,
+        "RevisionDate": "2018-10-30T10:29:58.8466667Z",
+        "Object": "cipherDetails"
+    }],
+    "Domains": null,
+    "Object": "sync"
+}

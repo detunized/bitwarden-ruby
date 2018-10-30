@@ -216,15 +216,23 @@ config = YAML::load_file "config.yaml"
 username = config["username"] or fail "Username is missing"
 password = config["password"] or fail "Password is missing"
 
-kdf_iterations = request_kdf_iteration_count username, http
-key = Crypto.derive_key username, password, kdf_iterations
-hash = Crypto.hash_password_base64 password, key
-auth_token = request_auth_token username, hash, http
+offile_vault_filename = config["testing-offile-vault"]
+kdf_iterations = config["testing-kdf-iterations"]
 
-begin
-    encrypted_vault = download_vault auth_token, http
-    accounts = decrypt_vault encrypted_vault, key
-    ap accounts
-ensure
-    logout http
+if offile_vault_filename && kdf_iterations
+    key = Crypto.derive_key username, password, kdf_iterations
+    encrypted_vault = JSON.load File.read offile_vault_filename
+    ap decrypt_vault encrypted_vault, key
+else
+    kdf_iterations = request_kdf_iteration_count username, http
+    key = Crypto.derive_key username, password, kdf_iterations
+    hash = Crypto.hash_password_base64 password, key
+    auth_token = request_auth_token username, hash, http
+
+    begin
+        encrypted_vault = download_vault auth_token, http
+        ap decrypt_vault encrypted_vault, key
+    ensure
+        logout http
+    end
 end

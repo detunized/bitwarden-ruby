@@ -1,2 +1,4 @@
 username: someone@gmail.com
 password: passw0rd
+testing-offile-vault: test/mobile-vault.json
+testing-kdf-iterations: 5000
